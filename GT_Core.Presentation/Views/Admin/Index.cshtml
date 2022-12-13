@@ -1,0 +1,31 @@
+@using GT_Core.Presentation.Models.ViewModels
+@model AdminViewModel
+
+@{
+
+}
+
+<section class="content-center">
+    <h1>
+        Admin Panel
+    </h1>
+    <div class="admin-container">
+        <div id="status_panel" class="admin-panel">
+            <partial name="_AdminStatusPanelPartial" model="@Model.StatusPanel" />
+        </div>
+        <div id="severity_panel" class="admin-panel">
+            <partial name="_AdminSeverityPanelPartial" model="@Model.SeverityPanel" />
+        </div>
+        <div id="role_panel" class="admin-panel">
+            @*<partial name="_AdminRolePanelPartial" />*@
+        </div>
+        <div id="user_panel" class="admin-panel">
+            <partial name="_AdminUserPanelPartial" model="@Model.UserPanel" />
+        </div>
+    </div>
+</section>
+
+@section Scripts 
+{
+    <partial name="_AjaxScriptsPartial" />
+}

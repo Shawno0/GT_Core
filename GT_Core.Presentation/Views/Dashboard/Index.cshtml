@@ -1,0 +1,61 @@
+@using GT_Core.Presentation.Models.ViewModels
+@model DashboardViewModel
+@{
+
+}
+
+<div class="dashboard-container">
+    <div class="dashboard-menu">
+        <a asp-controller="Ticket" asp-action="Create" method="get" data-ajax="true" data-ajax-update="#dashboard_partial" data-ajax-mode="replace" class="menu-item">
+            <div class="item-label">
+                <span>Create</span>
+            </div>
+            <div class="item-icon">
+                <svg data-name="create" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" >
+                     <path d="M19 14V22H2.99997V4H13"/>
+                     <path d="M17.4608 4.03921C18.2418 3.25817 19.5082 3.25816 20.2892 4.03921L20.9608 4.71079C21.7418 5.49184 21.7418 6.75817 20.9608 7.53921L11.5858 16.9142C11.2107 17.2893 10.702 17.5 10.1716 17.5L7.5 17.5L7.5 14.8284C7.5 14.298 7.71071 13.7893 8.08579 13.4142L17.4608 4.03921Z"/> 
+                     <path d="M16.25 5.25L19.75 8.75"/> 
+                </svg>
+            </div>
+        </a>
+        <a asp-controller="Dashboard" asp-action="All" method="get" data-ajax="true" data-ajax-update="#dashboard_partial" data-ajax-mode="replace" class="menu-item">
+            <div class="item-label">
+                <span>All</span> <!--Home-->
+            </div>
+            <div class="item-icon">
+                <svg data-name="all" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" > 
+                    <path d="M2 12L5 9.3M22 12L19 9.3M19 9.3L12 3L5 9.3M19 9.3V21H5V9.3"/>
+                </svg>
+            </div>
+        </a>
+        <a asp-controller="Dashboard" asp-action="MyTickets" method="get" data-ajax="true" data-ajax-update="#dashboard_partial" data-ajax-mode="replace" class="menu-item">
+            <div class="item-label">
+                <span>My Tickets</span>
+            </div>
+            <div class="item-icon">
+                <svg data-name="my_tickets" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" >
+                    <path d="M4,20 C4,17 8,17 10,15 C11,14 8,14 8,9 C8,5.667 9.333,4 12,4 C14.667,4 16,5.667 16,9 C16,14 13,14 14,15 C16,17 20,17 20,20"/>
+                </svg>
+            </div>
+        </a>
+        @foreach (SeverityViewModel severity in Model.Severities)
+        {
+            <a asp-controller="Dashboard" asp-action="TicketsBySeverity" asp-route-_id="@severity.Id" method="get" data-ajax="true" data-ajax-update="#dashboard_partial" data-ajax-mode="replace" class="menu-item">
+                <div class="item-label">
+                    <span>@severity.Name</span>
+                </div>
+                <div class="item-icon">
+                    @Html.Raw(severity.Icon)
+                </div>
+            </a>
+        }
+    </div>
+    <div id="dashboard_partial" class="dashboard">
+        <partial name="_DashboardPartial" model="Model.Tickets" />
+    </div>
+</div>
+
+@section Scripts 
+{
+    <partial name="_AjaxScriptsPartial" />
+}

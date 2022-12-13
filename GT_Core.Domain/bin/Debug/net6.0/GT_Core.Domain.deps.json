@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "GT_Core.Domain/1.0.0": {
+        "runtime": {
+          "GT_Core.Domain.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "GT_Core.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

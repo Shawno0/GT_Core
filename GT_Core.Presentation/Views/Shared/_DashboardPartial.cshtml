@@ -1,0 +1,20 @@
+@using GT_Core.Presentation.Models.ViewModels
+@model IEnumerable<TicketViewModel>
+
+@{
+
+}
+
+<h1>Ticket Count: @(Model?.Count() ?? 0)</h1>
+
+@foreach (TicketViewModel ticket in Model)
+{
+    <div id="ticket_@ticket.Id" class="ticket-container">
+        <div class="ticket-title">
+            <span>@ticket.Title</span>
+        </div>
+        <div class="ticket-description">
+            <span>@ticket.Description</span>
+        </div>
+    </div>
+}

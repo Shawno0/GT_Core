@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - GT_Core</title>
+    <link rel="stylesheet" href="~/css/layout.css"/>
+</head>
+<body>
+    <nav id="nav">
+        <a class="nav-home" asp-area="" asp-controller="Home" asp-action="Index">GT_Core</a>
+        <a class="nav-item nav-menu show-menu" href="#nav">
+            <svg data-name="nav_menu" viewBox="0 0 24 24" role="img" xmlns="http://www.w3.org/2000/svg"> 
+	            <path d="M6 7L18 7M6 12L18 12M6 17L18 17"/> 
+            </svg>
+        </a>
+        <a class="nav-item nav-menu hide-menu" href="#">
+            <svg data-name="nav_menu" viewBox="0 0 24 24" role="img" xmlns="http://www.w3.org/2000/svg"> 
+	            <path d="M6 7L18 7M6 12L18 12M6 17L18 17"/> 
+            </svg>
+        </a>
+        <div class="nav-collapse">
+            <div class="nav-group">
+                <div class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Admin" asp-action="Index">Admin</a>
+                </div>
+            </div>
+            <partial name="_LoginPartial" />
+        </div>
+    </nav>
+    <main role="main">
+        @RenderBody()
+    </main>
+    <footer>
+        &copy; 2022 - GT_Core
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

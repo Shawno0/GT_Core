@@ -1,0 +1,68 @@
+@using GT_Core.Presentation
+@model LoginViewModel
+
+@{
+    Layout = "/Views/Shared/_LoginLayout.cshtml";
+    ViewData["Title"] = "Log in";
+}
+
+<div class="content-center">
+    <section>
+        <h1>@ViewData["Title"]</h1>
+        <form id="account" method="post">
+            <h4>Use a local account to log in.</h4>
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="input-container">
+                <label asp-for="UserName"></label>
+                <input asp-for="UserName"/>
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="input-container">
+                <label asp-for="Password"></label>
+                <input asp-for="Password"/>
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="input-container">
+                <div class="checkbox">
+                    <label asp-for="RememberMe">
+                        <input asp-for="RememberMe" />
+                        @Html.DisplayNameFor(m => m.RememberMe)
+                    </label>
+                </div>
+            </div>
+            <div class="input-container">
+                <button type="submit" class="btn btn-primary">Log in</button>
+            </div>
+            <div class="input-container">
+                <p>
+                    <a id="forgot-password" asp-controller="account" asp-action="forgotpassword">Forgot your password?</a>
+                </p>
+            </div>
+        </form>
+    </section>
+
+    @{
+        if ((Model.ExternalLogins?.Count ?? 0) > 0)
+        {
+            <section>
+                <h4>Use another service to log in.</h4>
+                <hr />
+                <form id="external-account" asp-controller="account" asp-action="externallogin" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" class="form-horizontal">
+                    <div>
+                        <p>
+                            @foreach (var provider in Model.ExternalLogins)
+                            {
+                                <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                            }
+                        </p>
+                    </div>
+                </form>
+            </section>
+        }
+    }
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

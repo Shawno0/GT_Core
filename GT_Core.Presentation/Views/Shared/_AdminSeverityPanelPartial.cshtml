@@ -1,0 +1,22 @@
+@using GT_Core.Presentation.Models.ViewModels
+@model SeverityPanelViewModel
+
+@{
+    var severities = Model.Severities.Select(s => new SelectListItem( text: s.Name, value: s.Id.ToString())) ?? new List<SelectListItem>();
+}
+
+<h2>
+    Severity Panel
+</h2>
+@if (severities.Count() > 0)
+{
+     <form asp-controller="Severity" asp-action="Delete" method="post" data-ajax="true" data-ajax-update="#severity_panel" data-ajax-mode="replace" class="content-center" >
+        <div class="input-container">
+            <label asp-for="DeleteSeverity"></label>
+            <select asp-for="DeleteSeverity" asp-items="severities"></select>
+        </div>
+        <button type="submit" value="Delete">Delete</button>
+    </form>   
+}
+
+<partial name="_AdminNewSeverityPartial" model="@Model.NewSeverity"></partial>

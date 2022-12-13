@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - TimeAndSpaceCore</title>
+    <link rel="stylesheet" href="~/css/layout.css"/>
+</head>
+<body>
+    <nav>
+        <a class="nav-home" asp-area="" asp-controller="Home" asp-action="Index">GT_Core</a>
+    </nav>
+    <main role="main">
+        @RenderBody()
+    </main>
+    <footer>
+        &copy; @DateTime.Now.Year - GT_Core
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

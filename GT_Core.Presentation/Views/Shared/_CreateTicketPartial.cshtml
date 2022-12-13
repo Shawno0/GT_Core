@@ -1,0 +1,42 @@
+@using GT_Core.Presentation.Models.ViewModels
+@model CreateTicketViewModel
+
+@{
+    IEnumerable<SelectListItem> severities = Model?.Severities?.Select(s => new SelectListItem( text: s.Name, value: s.Id.ToString())) ?? new List<SelectListItem>();
+    IEnumerable<SelectListItem> users = Model?.Users?.Select(s => new SelectListItem(text: s.UserName, value: s.Id.ToString())) ?? new List<SelectListItem>();
+}
+
+<section>
+    <form asp-controller="Ticket" asp-action="Create" method="post" data-ajax="true" data-ajax-update="#dashboard_partial" data-ajax-mode="replace" >
+        <div class="input-container">
+            <label asp-for="@Model.Ticket.Title"></label>
+            <input asp-for="@Model.Ticket.Title" />
+            <span asp-validation-for="@Model.Ticket.Title"></span>
+        </div>
+        <div class="input-container">
+            <label asp-for="@Model.Ticket.Description"></label>
+            <textarea asp-for="@Model.Ticket.Description" ></textarea>
+            <span asp-validation-for="@Model.Ticket.Description"></span>
+        </div>
+        <div class="input-container">
+            <label asp-for="@Model.Ticket.Severity"></label>
+            <select asp-for="@Model.Severity" asp-items="@severities"></select>
+            <span asp-validation-for="@Model.Ticket.Severity"></span>
+        </div>
+        <div class="input-container">
+            <label asp-for="@Model.Ticket.Developer"></label>
+            <select asp-for="@Model.Developer" asp-items="@users"></select>
+            <span asp-validation-for="@Model.Ticket.Developer"></span>
+        </div>
+        <div class="input-container">
+            <label asp-for="@Model.Ticket.Consultant"></label>
+            <select asp-for="@Model.Consultant" asp-items="@users"></select>
+            <span asp-validation-for="@Model.Ticket.Consultant"></span>
+        </div>
+        <button type="submit">Create</button>
+    </form>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

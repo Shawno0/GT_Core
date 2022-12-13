@@ -1,0 +1,21 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+<div class="nav-group">
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="nav-item">
+            <a  class="nav-link" asp-controller="account" asp-action="manage" title="Manage">@User.Identity.Name</a>
+        </div>
+        <div class="nav-item">
+            <form  class="form-inline" asp-controller="account" asp-action="logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button  type="submit" class="nav-link">Logout</button>
+            </form>
+        </div>
+    }
+    else
+    {
+        <div class="nav-item">
+            <a class="nav-link" asp-controller="account" asp-action="login">Login</a>
+        </div>
+    }
+</div>

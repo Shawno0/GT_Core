@@ -1,0 +1,17 @@
+D:\Git\GT_Core\GT_Core.Infrastructure\bin\Debug\net6.0\GT_Core.Infrastructure.deps.json
+D:\Git\GT_Core\GT_Core.Infrastructure\bin\Debug\net6.0\GT_Core.Infrastructure.dll
+D:\Git\GT_Core\GT_Core.Infrastructure\bin\Debug\net6.0\GT_Core.Infrastructure.pdb
+D:\Git\GT_Core\GT_Core.Infrastructure\bin\Debug\net6.0\GT_Core.Application.dll
+D:\Git\GT_Core\GT_Core.Infrastructure\bin\Debug\net6.0\GT_Core.Domain.dll
+D:\Git\GT_Core\GT_Core.Infrastructure\bin\Debug\net6.0\GT_Core.Application.pdb
+D:\Git\GT_Core\GT_Core.Infrastructure\bin\Debug\net6.0\GT_Core.Domain.pdb
+D:\Git\GT_Core\GT_Core.Infrastructure\obj\Debug\net6.0\GT_Core.Infrastructure.csproj.AssemblyReference.cache
+D:\Git\GT_Core\GT_Core.Infrastructure\obj\Debug\net6.0\GT_Core.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+D:\Git\GT_Core\GT_Core.Infrastructure\obj\Debug\net6.0\GT_Core.Infrastructure.AssemblyInfoInputs.cache
+D:\Git\GT_Core\GT_Core.Infrastructure\obj\Debug\net6.0\GT_Core.Infrastructure.AssemblyInfo.cs
+D:\Git\GT_Core\GT_Core.Infrastructure\obj\Debug\net6.0\GT_Core.Infrastructure.csproj.CoreCompileInputs.cache
+D:\Git\GT_Core\GT_Core.Infrastructure\obj\Debug\net6.0\GT_Core.Infrastructure.csproj.CopyComplete
+D:\Git\GT_Core\GT_Core.Infrastructure\obj\Debug\net6.0\GT_Core.Infrastructure.dll
+D:\Git\GT_Core\GT_Core.Infrastructure\obj\Debug\net6.0\refint\GT_Core.Infrastructure.dll
+D:\Git\GT_Core\GT_Core.Infrastructure\obj\Debug\net6.0\GT_Core.Infrastructure.pdb
+D:\Git\GT_Core\GT_Core.Infrastructure\obj\Debug\net6.0\ref\GT_Core.Infrastructure.dll
