@@ -4,7 +4,7 @@ using GT_Core.Presentation.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using TS_Core.Presentation.Services;
+using GT_Core.Presentation.Services;
 
 namespace GT_Core.Presentation.Controllers
 {

@@ -3,7 +3,7 @@ using GT_Core.Application.Common.Models;
 using GT_Core.Domain.Entities;
 using GT_Core.Presentation.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using TS_Core.Presentation.Services;
+using GT_Core.Presentation.Services;
 
 namespace GT_Core.Presentation.Controllers
 {
@@ -16,16 +16,22 @@ namespace GT_Core.Presentation.Controllers
             StatusService = _statusService;
         }
 
-        public async Task<StatusViewModel> Create(StatusViewModel _status)
+        public async Task<IActionResult> Index()
+        {
+            StatusPanelViewModel model = new StatusPanelViewModel();
+
+            var severityResult = await StatusService.ReadAll();
+
+            model.Statuses = severityResult.Entity?.Select(s => new StatusViewModel(s)) ?? new List<StatusViewModel>();
+
+            return PartialView("_AdminStatusPanelPartial", model);
+        }
+
+        public async Task<IActionResult> Create(StatusViewModel _status)
         {
             Result<Status> result = await StatusService.Create(_status.Map());
 
-            if (result.Succeeded)
-            {
-                return new StatusViewModel(result.Entity);
-            }
-
-            return _status;
+            return RedirectToAction("Index");
         }
 
         public async Task<StatusViewModel> Read(int _id)

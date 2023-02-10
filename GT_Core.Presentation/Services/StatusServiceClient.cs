@@ -6,11 +6,11 @@ using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 
-namespace TS_Core.Presentation.Services
+namespace GT_Core.Presentation.Services
 {
     public class StatusServiceClient : EntityServiceClient<int, Status>
     {
-        public StatusServiceClient(IHttpClientFactory _clientFactory, IConfiguration _config) : base(_clientFactory)
+        public StatusServiceClient(IHttpClientFactory _clientFactory, IConfiguration _config) : base(_clientFactory, _config)
         {
             ServiceUri = $"{_config.GetValue<string>("APIUri")}/status";
         }

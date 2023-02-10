@@ -13,25 +13,28 @@ namespace GT_Core.Presentation.Models.ViewModels
         [Required]
         public string Description { get; set; }
         [Required]
-        public SeverityViewModel Severity { get; set; }
+        public int Severity { get; set; }
         [Required]
-        public UserViewModel Developer { get; set; }
+        public int Status { get; set; }
         [Required]
-        public UserViewModel Consultant { get; set; }
+        public string Developer { get; set; }
+        [Required]
+        public string Consultant { get; set; }
 
         public TicketViewModel()
         {
 
         }
 
-        public TicketViewModel(Ticket _ticket, UserManager<ApplicationUser> _userManager)
+        public TicketViewModel(Ticket _ticket)
         {
             Id = _ticket.Id;
             Title = _ticket.Title;
             Description = _ticket.Description;
-            Severity = new SeverityViewModel(_ticket.Severity);
-            Developer = new UserViewModel(_userManager.Users.FirstOrDefault(u => u.Id == _ticket.Developer));
-            Consultant = new UserViewModel(_userManager.Users.FirstOrDefault(u => u.Id == _ticket.Consultant));
+            Severity = _ticket.Severity.Id;
+            Status = _ticket.Status.Id;
+            Developer = _ticket.Developer;
+            Consultant = _ticket.Consultant;
             Created = _ticket.Created;
             CreatedBy = _ticket.CreatedBy;
             LastModified = _ticket.LastModified;
@@ -47,6 +50,10 @@ namespace GT_Core.Presentation.Models.ViewModels
                 Id = Id,
                 Title = Title,
                 Description = Description,
+                Severity = new Severity() { Id = Severity },
+                Status = new Status() { Id = Status },
+                Developer = Developer,
+                Consultant = Consultant,
                 Created = Created,
                 CreatedBy = CreatedBy,
                 LastModified = LastModified,
@@ -63,6 +70,10 @@ namespace GT_Core.Presentation.Models.ViewModels
                 Id = _id,
                 Title = Title,
                 Description = Description,
+                Severity = new Severity() { Id = Severity },
+                Status = new Status() { Id = Status },
+                Developer = Developer,
+                Consultant = Consultant,
                 Created = Created,
                 CreatedBy = CreatedBy,
                 LastModified = LastModified,

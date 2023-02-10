@@ -8,30 +8,31 @@
 
 <section>
     <form asp-controller="Ticket" asp-action="Create" method="post" data-ajax="true" data-ajax-update="#dashboard_partial" data-ajax-mode="replace" >
+        <input type="hidden" asp-for="Ticket.Status" />
         <div class="input-container">
-            <label asp-for="@Model.Ticket.Title"></label>
-            <input asp-for="@Model.Ticket.Title" />
-            <span asp-validation-for="@Model.Ticket.Title"></span>
+            <label asp-for="Ticket.Title"></label>
+            <input asp-for="Ticket.Title" />
+            <span asp-validation-for="Ticket.Title"></span>
         </div>
         <div class="input-container">
-            <label asp-for="@Model.Ticket.Description"></label>
-            <textarea asp-for="@Model.Ticket.Description" ></textarea>
-            <span asp-validation-for="@Model.Ticket.Description"></span>
+            <label asp-for="Ticket.Description"></label>
+            <textarea asp-for="Ticket.Description" ></textarea>
+            <span asp-validation-for="Ticket.Description"></span>
         </div>
         <div class="input-container">
-            <label asp-for="@Model.Ticket.Severity"></label>
-            <select asp-for="@Model.Severity" asp-items="@severities"></select>
-            <span asp-validation-for="@Model.Ticket.Severity"></span>
+            <label asp-for="Ticket.Severity"></label>
+            <select asp-for="Ticket.Severity" asp-items="@severities"></select>
+            <span asp-validation-for="Ticket.Severity"></span>
         </div>
         <div class="input-container">
-            <label asp-for="@Model.Ticket.Developer"></label>
-            <select asp-for="@Model.Developer" asp-items="@users"></select>
-            <span asp-validation-for="@Model.Ticket.Developer"></span>
+            <label asp-for="Ticket.Developer"></label>
+            <select asp-for="Ticket.Developer" asp-items="@users"></select>
+            <span asp-validation-for="Ticket.Developer"></span>
         </div>
         <div class="input-container">
-            <label asp-for="@Model.Ticket.Consultant"></label>
-            <select asp-for="@Model.Consultant" asp-items="@users"></select>
-            <span asp-validation-for="@Model.Ticket.Consultant"></span>
+            <label asp-for="Ticket.Consultant"></label>
+            <select asp-for="Ticket.Consultant" asp-items="@users"></select>
+            <span asp-validation-for="Ticket.Consultant"></span>
         </div>
         <button type="submit">Create</button>
     </form>

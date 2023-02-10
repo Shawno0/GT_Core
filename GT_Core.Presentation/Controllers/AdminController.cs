@@ -3,7 +3,7 @@ using GT_Core.Infrastructure.Identity;
 using GT_Core.Presentation.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using TS_Core.Presentation.Services;
+using GT_Core.Presentation.Services;
 
 namespace GT_Core.Presentation.Controllers
 {

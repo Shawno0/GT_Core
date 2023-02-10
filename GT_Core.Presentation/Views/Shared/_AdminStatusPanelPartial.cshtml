@@ -18,11 +18,4 @@
         <button type="submit" value="Delete">Delete</button>
     </form>
 }
-<form asp-controller="Status" asp-action="Create" method="post" data-ajax="true" data-ajax-update="#status_panel" data-ajax-mode="replace" class="content-center" >
-    <div class="input-container">
-        <label asp-for="NewStatus.Name"></label>
-        <input asp-for="NewStatus.Name" />
-        <span asp-validation-for="NewStatus.Name" ></span>
-    </div>
-    <button type="submit" value="Create">Create</button>
-</form>
+<partial name="_CreateStatusPartial" model="Model.NewStatus" />

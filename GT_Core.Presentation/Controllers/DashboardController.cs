@@ -3,7 +3,7 @@ using GT_Core.Infrastructure.Identity;
 using GT_Core.Presentation.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using TS_Core.Presentation.Services;
+using GT_Core.Presentation.Services;
 
 namespace GT_Core.Presentation.Controllers
 {
@@ -49,7 +49,7 @@ namespace GT_Core.Presentation.Controllers
             }
 
             model.Severities = severitiesResult.Entity?.Select(s => new SeverityViewModel(s)) ?? new List<SeverityViewModel>();
-            model.Tickets = ticketsResult.Entity?.Select(t => new TicketViewModel(t, UserManager)) ?? new List<TicketViewModel>();
+            model.Tickets = ticketsResult.Entity?.Select(t => new TicketViewModel(t)) ?? new List<TicketViewModel>();
 
             return View(model);
         }
@@ -63,7 +63,7 @@ namespace GT_Core.Presentation.Controllers
                 Logger.LogError($"Error reading tickets for User {User?.Identity?.Name}.", ticketResult.Errors);
             }
 
-            return PartialView("_DashboardPartial", ticketResult.Entity?.Select(t => new TicketViewModel(t, UserManager)) ?? new List<TicketViewModel>());
+            return PartialView("_DashboardPartial", ticketResult.Entity?.Select(t => new TicketViewModel(t)) ?? new List<TicketViewModel>());
         }
 
         public async Task<IActionResult> Ticket(int _id)
@@ -72,7 +72,7 @@ namespace GT_Core.Presentation.Controllers
 
             if (ticketResult.Succeeded)
             {
-                return PartialView("_ViewTicketPartial", new TicketViewModel(ticketResult.Entity, UserManager));
+                return PartialView("_ViewTicketPartial", new TicketViewModel(ticketResult.Entity));
             }
 
             return RedirectToAction("All");
@@ -87,7 +87,7 @@ namespace GT_Core.Presentation.Controllers
                 Logger.LogError($"Error reading tickets for User {User?.Identity?.Name}.", ticketResult.Errors);
             }
 
-            return PartialView("_DashboardPartial", ticketResult.Entity?.Select(t => new TicketViewModel(t, UserManager)) ?? new List<TicketViewModel>());
+            return PartialView("_DashboardPartial", ticketResult.Entity?.Select(t => new TicketViewModel(t)) ?? new List<TicketViewModel>());
         }
 
         public async Task<IActionResult> TicketsBySeverity(int _id)
@@ -99,7 +99,7 @@ namespace GT_Core.Presentation.Controllers
                 Logger.LogError($"Error reading tickets for User {User?.Identity?.Name}.", ticketResult.Errors);
             }
 
-            return PartialView("_DashboardPartial", ticketResult.Entity?.Select(t => new TicketViewModel(t, UserManager)) ?? new List<TicketViewModel>());
+            return PartialView("_DashboardPartial", ticketResult.Entity?.Select(t => new TicketViewModel(t)) ?? new List<TicketViewModel>());
         }
     }
 }

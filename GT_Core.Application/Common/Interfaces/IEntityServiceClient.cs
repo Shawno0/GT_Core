@@ -16,5 +16,6 @@ namespace GT_Core.Application.Common.Interfaces
         Task<Result<IEnumerable<TEntity>>> ReadAll();
         Task<Result<TEntity>> Update(TEntity _entity);
         Task<Result<TEntity>> Delete(TKey _key);
+        Task UpdateEntityCache();
     }
 }

@@ -6,11 +6,11 @@ using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 
-namespace TS_Core.Presentation.Services
+namespace GT_Core.Presentation.Services
 {
     public class TicketServiceClient : EntityServiceClient<int, Ticket>
     {
-        public TicketServiceClient(IHttpClientFactory _clientFactory, IConfiguration _config) : base(_clientFactory)
+        public TicketServiceClient(IHttpClientFactory _clientFactory, IConfiguration _config) : base(_clientFactory, _config)
         {
             ServiceUri = $"{_config.GetValue<string>("APIUri")}/ticket";
         }

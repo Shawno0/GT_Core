@@ -5,7 +5,7 @@ using GT_Core.Infrastructure.Identity;
 using GT_Core.Presentation.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using TS_Core.Presentation.Services;
+using GT_Core.Presentation.Services;
 
 namespace GT_Core.Presentation.Controllers
 {
@@ -15,17 +15,20 @@ namespace GT_Core.Presentation.Controllers
         private readonly UserManager<ApplicationUser> UserManager;
         private readonly TicketServiceClient TicketService;
         private readonly SeverityServiceClient SeverityService;
+        private readonly StatusServiceClient StatusService;
 
         public TicketController(
             ILogger<TicketController> _logger,
             UserManager<ApplicationUser> _userManager,
             TicketServiceClient _ticketService,
-            SeverityServiceClient _severityService)
+            SeverityServiceClient _severityService,
+            StatusServiceClient _statusService)
         {
             Logger = _logger;
             UserManager = _userManager;
             TicketService = _ticketService;
             SeverityService = _severityService;
+            StatusService = _statusService;
         }
 
 
@@ -46,9 +49,10 @@ namespace GT_Core.Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateTicketViewModel _model)
         {
-            _model.Ticket.Severity = _model.Severities.FirstOrDefault(s => s.Id == _model.Severity);
-            _model.Ticket.Developer = new UserViewModel(UserManager.Users.FirstOrDefault(u => u.Id == _model.Developer));
-            _model.Ticket.Consultant = new UserViewModel(UserManager.Users.FirstOrDefault(u => u.Id == _model.Consultant));
+            if (!ModelState.IsValid)
+            {
+                return PartialView("_CreateTicketPartial", _model);
+            }
 
             Result<Ticket> result = await TicketService.Create(_model.Ticket.Map());
 
@@ -71,7 +75,7 @@ namespace GT_Core.Presentation.Controllers
 
             if (result.Succeeded)
             {
-                return new TicketViewModel(result.Entity, UserManager);
+                return new TicketViewModel(result.Entity);
             }
 
             return new TicketViewModel();
@@ -83,7 +87,7 @@ namespace GT_Core.Presentation.Controllers
 
             if (result.Succeeded)
             {
-                return result.Entity?.Select(e => new TicketViewModel(e, UserManager))?.ToList() ?? new List<TicketViewModel>();
+                return result.Entity?.Select(e => new TicketViewModel(e))?.ToList() ?? new List<TicketViewModel>();
             }
 
             return new List<TicketViewModel>();
@@ -95,7 +99,7 @@ namespace GT_Core.Presentation.Controllers
 
             if (result.Succeeded)
             {
-                return result.Entity?.Select(e => new TicketViewModel(e, UserManager))?.ToList() ?? new List<TicketViewModel>();
+                return result.Entity?.Select(e => new TicketViewModel(e))?.ToList() ?? new List<TicketViewModel>();
             }
 
             return new List<TicketViewModel>();
@@ -107,7 +111,7 @@ namespace GT_Core.Presentation.Controllers
 
             if (result.Succeeded)
             {
-                return result.Entity?.Select(e => new TicketViewModel(e, UserManager))?.ToList() ?? new List<TicketViewModel>();
+                return result.Entity?.Select(e => new TicketViewModel(e))?.ToList() ?? new List<TicketViewModel>();
             }
 
             return new List<TicketViewModel>();
@@ -119,7 +123,7 @@ namespace GT_Core.Presentation.Controllers
 
             if (result.Succeeded)
             {
-                return result.Entity?.Select(e => new TicketViewModel(e, UserManager))?.ToList() ?? new List<TicketViewModel>();
+                return result.Entity?.Select(e => new TicketViewModel(e))?.ToList() ?? new List<TicketViewModel>();
             }
 
             return new List<TicketViewModel>();
@@ -131,7 +135,7 @@ namespace GT_Core.Presentation.Controllers
 
             if (result.Succeeded)
             {
-                return result.Entity?.Select(e => new TicketViewModel(e, UserManager))?.ToList() ?? new List<TicketViewModel>();
+                return result.Entity?.Select(e => new TicketViewModel(e))?.ToList() ?? new List<TicketViewModel>();
             }
 
             return new List<TicketViewModel>();
@@ -143,7 +147,7 @@ namespace GT_Core.Presentation.Controllers
 
             if (result.Succeeded)
             {
-                return new TicketViewModel(result.Entity, UserManager);
+                return new TicketViewModel(result.Entity);
             }
 
             return _ticket;
@@ -155,7 +159,7 @@ namespace GT_Core.Presentation.Controllers
 
             if (result.Succeeded)
             {
-                return new TicketViewModel(result.Entity, UserManager);
+                return new TicketViewModel(result.Entity);
             }
 
             return _ticket;
