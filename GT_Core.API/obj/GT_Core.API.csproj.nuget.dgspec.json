@@ -262,10 +262,6 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
-            "Duende.IdentityServer.EntityFramework": {
-              "target": "Package",
-              "version": "[6.0.4, )"
-            },
             "Microsoft.AspNetCore.ApiAuthorization.IdentityServer": {
               "target": "Package",
               "version": "[6.0.8, )"

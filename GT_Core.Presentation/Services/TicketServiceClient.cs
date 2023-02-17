@@ -10,7 +10,7 @@ namespace GT_Core.Presentation.Services
 {
     public class TicketServiceClient : EntityServiceClient<int, Ticket>
     {
-        public TicketServiceClient(IHttpClientFactory _clientFactory, IConfiguration _config) : base(_clientFactory, _config)
+        public TicketServiceClient(IConfiguration _config) : base(_config)
         {
             ServiceUri = $"{_config.GetValue<string>("APIUri")}/ticket";
         }
@@ -19,9 +19,7 @@ namespace GT_Core.Presentation.Services
         {
             var request = new HttpRequestMessage(HttpMethod.Get, $"{ServiceUri}/status/{_id}/read");
 
-            var client = ClientFactory.CreateClient();
-
-            var response = await client.SendAsync(request);
+            var response = await Client.SendAsync(request);
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
@@ -37,9 +35,7 @@ namespace GT_Core.Presentation.Services
         {
             var request = new HttpRequestMessage(HttpMethod.Get, $"{ServiceUri}/severity/{_id}/read");
 
-            var client = ClientFactory.CreateClient();
-
-            var response = await client.SendAsync(request);
+            var response = await Client.SendAsync(request);
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
@@ -55,9 +51,7 @@ namespace GT_Core.Presentation.Services
         {
             var request = new HttpRequestMessage(HttpMethod.Get, $"{ServiceUri}/user/{_id}/read");
 
-            var client = ClientFactory.CreateClient();
-
-            var response = await client.SendAsync(request);
+            var response = await Client.SendAsync(request);
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {

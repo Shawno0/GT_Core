@@ -10,7 +10,7 @@ namespace GT_Core.Presentation.Services
 {
     public class SeverityServiceClient : EntityServiceClient<int, Severity>
     {
-        public SeverityServiceClient(IHttpClientFactory _clientFactory, IConfiguration _config) : base(_clientFactory, _config)
+        public SeverityServiceClient(IConfiguration _config) : base(_config)
         {
             ServiceUri = $"{_config.GetValue<string>("APIUri")}/severity";
         }

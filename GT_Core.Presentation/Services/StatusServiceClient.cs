@@ -10,7 +10,7 @@ namespace GT_Core.Presentation.Services
 {
     public class StatusServiceClient : EntityServiceClient<int, Status>
     {
-        public StatusServiceClient(IHttpClientFactory _clientFactory, IConfiguration _config) : base(_clientFactory, _config)
+        public StatusServiceClient(IConfiguration _config) : base(_config)
         {
             ServiceUri = $"{_config.GetValue<string>("APIUri")}/status";
         }

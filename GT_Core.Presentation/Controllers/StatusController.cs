@@ -82,16 +82,11 @@ namespace GT_Core.Presentation.Controllers
             return _status;
         }
 
-        public async Task<StatusViewModel> Delete(StatusViewModel _status)
+        public async Task<IActionResult> Delete(StatusViewModel _status)
         {
             Result<Status> result = await StatusService.Delete(_status.Id);
 
-            if (result.Succeeded)
-            {
-                return new StatusViewModel(result.Entity);
-            }
-
-            return _status;
+            return RedirectToAction("Index");
         }
     }
 }

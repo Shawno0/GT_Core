@@ -27,8 +27,8 @@ public static class DependencyInjection
             //.AddUserStore<ApplicationUserStore>()
             //.AddRoleStore<ApplicationRoleStore>();
 
-        services.AddIdentityServer()
-            .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+        //services.AddIdentityServer()
+        //    .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
         services.AddTransient<IIdentityService, IdentityService>();
 

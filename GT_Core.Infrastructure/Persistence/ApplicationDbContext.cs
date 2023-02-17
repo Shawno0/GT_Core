@@ -3,28 +3,24 @@ using GT_Core.Application.Common.Interfaces;
 using GT_Core.Domain.Common;
 using GT_Core.Domain.Entities;
 using GT_Core.Infrastructure.Identity;
-using Duende.IdentityServer.EntityFramework.Options;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
-using Duende.IdentityServer.EntityFramework.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace GT_Core.Infrastructure.Persistence
 {
-    public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, IApplicationDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext
     {
         private readonly ICurrentUserService _currentUserService;
 
         public ApplicationDbContext(
-            DbContextOptions<ApplicationDbContext> options,
-            IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
+            DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
 
         public ApplicationDbContext(
             DbContextOptions<ApplicationDbContext> options,
-            IOptions<OperationalStoreOptions> operationalStoreOptions,
-            ICurrentUserService currentUserService) : base(options, operationalStoreOptions)
+            ICurrentUserService currentUserService) : base(options)
         {
             _currentUserService = currentUserService;
         }

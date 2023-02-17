@@ -5,7 +5,7 @@ namespace GT_Core.Presentation.Services
 {
     public class CommentServiceClient : EntityServiceClient<int, Comment>
     {
-        public CommentServiceClient(IHttpClientFactory _clientFactory, IConfiguration _config) : base(_clientFactory, _config)
+        public CommentServiceClient(IConfiguration _config) : base(_config)
         {
             ServiceUri = $"{_config.GetValue<string>("APIUri")}/comment";
         }

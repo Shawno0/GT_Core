@@ -13,13 +13,13 @@ namespace GT_Core.Presentation.Services
         where TEntity : Entity<TKey>, new()
         where TKey : IEquatable<TKey>, IComparable<TKey>
     {
-        internal readonly IHttpClientFactory ClientFactory;
+        internal readonly HttpClient Client;
         internal IEntityCache<TKey, TEntity> EntityCache;
         internal string ServiceUri = String.Empty;
 
-        public EntityServiceClient(IHttpClientFactory _clientFactory, IConfiguration _config)
+        public EntityServiceClient(IConfiguration _config)
         {
-            ClientFactory = _clientFactory;
+            Client = new HttpClient();
             EntityCache = new EntityCache<TKey, TEntity>(_config.GetValue<int>("EntityCacheSettings:DefaultLifetimeMinutes"));
         }
 
@@ -27,15 +27,13 @@ namespace GT_Core.Presentation.Services
         {
             var request = new HttpRequestMessage(HttpMethod.Post, $"{ServiceUri}/create");
 
-            var client = ClientFactory.CreateClient();
-
             var content = JsonConvert.SerializeObject(_entity);
 
             StringContent stringContent =
               new StringContent(content, System.Text.Encoding.UTF8,
               "application/json");
 
-            var response = await client.PostAsync(request.RequestUri,
+            var response = await Client.PostAsync(request.RequestUri,
               stringContent);
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
@@ -61,9 +59,7 @@ namespace GT_Core.Presentation.Services
 
             var request = new HttpRequestMessage(HttpMethod.Get, $"{ServiceUri}/{_id}/read");
 
-            var client = ClientFactory.CreateClient();
-
-            var response = await client.SendAsync(request);
+            var response = await Client.SendAsync(request);
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
@@ -98,9 +94,7 @@ namespace GT_Core.Presentation.Services
 
             var request = new HttpRequestMessage(HttpMethod.Get, $"{ServiceUri}/{_startId}/{_endId}/read");
 
-            var client = ClientFactory.CreateClient();
-
-            var response = await client.SendAsync(request);
+            var response = await Client.SendAsync(request);
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
@@ -133,9 +127,7 @@ namespace GT_Core.Presentation.Services
 
             var request = new HttpRequestMessage(HttpMethod.Get, $"{ServiceUri}/read");
 
-            var client = ClientFactory.CreateClient();
-
-            var response = await client.SendAsync(request);
+            var response = await Client.SendAsync(request);
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
@@ -158,15 +150,13 @@ namespace GT_Core.Presentation.Services
         {
             var request = new HttpRequestMessage(HttpMethod.Put, $"{ServiceUri}/update");
 
-            var client = ClientFactory.CreateClient();
-
             var content = JsonConvert.SerializeObject(_entity);
 
             StringContent stringContent =
               new StringContent(content, System.Text.Encoding.UTF8,
               "application/json");
 
-            var response = await client.PutAsync(request.RequestUri,
+            var response = await Client.PutAsync(request.RequestUri,
               stringContent);
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
@@ -184,9 +174,7 @@ namespace GT_Core.Presentation.Services
         {
             var request = new HttpRequestMessage(HttpMethod.Delete, $"{ServiceUri}/{_id}/delete");
 
-            var client = ClientFactory.CreateClient();
-
-            var response = await client.SendAsync(request);
+            var response = await Client.SendAsync(request);
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
@@ -204,9 +192,7 @@ namespace GT_Core.Presentation.Services
         {
             var request = new HttpRequestMessage(HttpMethod.Get, $"{ServiceUri}/read");
 
-            var client = ClientFactory.CreateClient();
-
-            var response = await client.SendAsync(request);
+            var response = await Client.SendAsync(request);
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
