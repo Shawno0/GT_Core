@@ -1,7 +1,7 @@
 @using GT_Core.Presentation.Models.ViewModels
 @model SeverityViewModel
 
-<form asp-controller="Severity" asp-action="Create" method="post" data-ajax="true" data-ajax-update="#severity_panel" data-ajax-mode="replace" class="content-center" >
+<form asp-controller="Admin" asp-action="CreateSeverity" method="post" data-ajax="true" data-ajax-update="#severity_panel" data-ajax-mode="replace" class="content-center" >
     <div class="input-container">
         <label asp-for="Name"></label>
         <input asp-for="Name" />

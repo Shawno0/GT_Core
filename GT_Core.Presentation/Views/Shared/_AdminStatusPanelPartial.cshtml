@@ -6,11 +6,12 @@
 }
 
 <h2>
-    Status Panel
+    Status
 </h2>
+<partial name="_CreateStatusPartial" model="Model.NewStatus" />
 @if (statuses.Count() > 0)
 {
-    <form asp-controller="Status" asp-action="Delete" method="delete" data-ajax="true" data-ajax-update="#status_panel" data-ajax-mode="replace" class="content-center" >
+    <form asp-controller="Admin" asp-action="DeleteStatus" method="post" data-ajax="true" data-ajax-update="#status_panel" data-ajax-mode="replace" class="content-center" >
         <div class="input-container">
             <label asp-for="DeleteStatus"></label>
             <select asp-for=DeleteStatus asp-items="statuses"></select>
@@ -18,4 +19,3 @@
         <button type="submit" value="Delete">Delete</button>
     </form>
 }
-<partial name="_CreateStatusPartial" model="Model.NewStatus" />

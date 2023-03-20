@@ -33,7 +33,7 @@ public static class DependencyInjection
         services.AddTransient<IIdentityService, IdentityService>();
 
         services.AddAuthentication()
-            .AddIdentityServerJwt();
+            .AddJwtBearer();
 
         services.Configure<IdentityOptions>(options => options.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier);
 

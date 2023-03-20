@@ -6,6 +6,7 @@ namespace GT_Core.Presentation.Models.ViewModels
     {
         public string Id { get; set; }
         public string UserName { get; set; }
+        public string Email { get; set; }
 
         public UserViewModel()
         {
@@ -16,6 +17,7 @@ namespace GT_Core.Presentation.Models.ViewModels
         {
             Id = _user.Id;
             UserName = _user.UserName;
+            Email = _user.Email;
         }
     }
 }

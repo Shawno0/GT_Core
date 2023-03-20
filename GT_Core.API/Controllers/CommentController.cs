@@ -1,10 +1,12 @@
 using GT_Core.API.Services;
 using GT_Core.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GT_Core.API.Controllers
 {
     [ApiController]
+    [Authorize]
     public class CommentController : Controller
     {
         private readonly CommentService CommentService;

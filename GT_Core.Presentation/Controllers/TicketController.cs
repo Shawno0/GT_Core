@@ -6,9 +6,11 @@ using GT_Core.Presentation.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using GT_Core.Presentation.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GT_Core.Presentation.Controllers
 {
+    [Authorize]
     public class TicketController : Controller
     {
         private readonly ILogger<TicketController> Logger;

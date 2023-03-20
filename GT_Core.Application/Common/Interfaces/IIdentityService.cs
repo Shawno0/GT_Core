@@ -9,14 +9,15 @@ namespace GT_Core.Application.Common.Interfaces
 {
     public interface IIdentityService
     {
-        Task<string> GetUserNameAsync(string userId);
+        Task<JWToken> AuthenticateAsync(string _userName, string _password, bool _persistent);
+        Task<string> GetUserNameAsync(string _userId);
 
-        Task<bool> IsInRoleAsync(string userId, string role);
+        Task<bool> IsInRoleAsync(string _userId, string _role);
 
-        Task<bool> AuthorizeAsync(string userId, string policyName);
+        Task<bool> AuthorizeAsync(string _userId, string _policyName);
 
-        Task<Result<string>> CreateUserAsync(string userName, string password);
+        Task<Result<string>> CreateUserAsync(string _userName, string _password);
 
-        Task<Result<string>> DeleteUserAsync(string userId);
+        Task<Result<string>> DeleteUserAsync(string _userId);
     }
 }

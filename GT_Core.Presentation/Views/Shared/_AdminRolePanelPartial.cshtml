@@ -1,5 +1,20 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using GT_Core.Presentation.Models.ViewModels
+@model RolePanelViewModel
+
 @{
+    var roles = Model.Roles.Select(r => new SelectListItem( text: r.Name, value: r.Id.ToString())) ?? new List<SelectListItem>();
+    var users = Model.Users.Select(u => new SelectListItem( text: u.UserName, value: u.Id.ToString())) ?? new List<SelectListItem>();
 }
+
+<h2>
+    Roles
+</h2>
+<partial name="_CreateRolePartial" model="@Model.NewRole"></partial>
+<partial name="_AddUserToRolePartial" model="@(new UserRoleViewModel(){ Users = users, Roles = roles })"></partial>
+<form asp-controller="Admin" asp-action="DeleteRole" method="post" data-ajax="true" data-ajax-update="#role_panel" data-ajax-mode="replace" class="content-center" >
+    <div class="input-container">
+        <label asp-for="DeleteRole"></label>
+        <select asp-for="DeleteRole" asp-items="roles"></select>
+    </div>
+    <button type="submit" value="Delete">Delete</button>
+</form>

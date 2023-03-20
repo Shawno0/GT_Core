@@ -1,0 +1,14 @@
+﻿@using GT_Core.Presentation.Models.ViewModels
+@model UserRoleViewModel
+
+<form asp-controller="Admin" asp-action="AddUserToRole" method="post" data-ajax="true" data-ajax-update="#role_panel" data-ajax-mode="replace" class="content-center">
+    <div class="input-container">
+        <label asp-for="UserId"></label>
+        <select asp-for="UserId" asp-items="Model.Users"></select>
+    </div>
+    <div class="input-container">
+        <label asp-for="RoleId"></label>
+        <select asp-for="RoleId" asp-items="Model.Roles"></select>
+    </div>
+    <button type="submit" value="Delete">Add User Role</button>
+</form>

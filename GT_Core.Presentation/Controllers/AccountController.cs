@@ -2,9 +2,11 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using GT_Core.Infrastructure.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GT_Core.Presentation.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -20,6 +22,8 @@ namespace GT_Core.Presentation.Controllers
             _logger = logger;
         }
 
+        [AllowAnonymous]
+
         public async Task<IActionResult> Login()
         {
             // Clear the existing external cookie to ensure a clean login process
@@ -33,6 +37,7 @@ namespace GT_Core.Presentation.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
@@ -62,6 +67,7 @@ namespace GT_Core.Presentation.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)

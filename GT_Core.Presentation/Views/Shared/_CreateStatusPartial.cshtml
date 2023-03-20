@@ -1,7 +1,7 @@
 ﻿@using GT_Core.Presentation.Models.ViewModels
 @model StatusViewModel
 
-<form asp-controller="Status" asp-action="Create" method="post" data-ajax="true" data-ajax-update="#status_panel" data-ajax-mode="replace" class="content-center" >
+<form asp-controller="Admin" asp-action="CreateStatus" method="post" data-ajax="true" data-ajax-update="#status_panel" data-ajax-mode="replace" class="content-center" >
     <div class="input-container">
         <label asp-for="Name"></label>
         <input asp-for="Name" />

@@ -181,7 +181,7 @@
           "lib/netstandard2.0/Microsoft.AspNetCore.Authentication.Core.dll": {}
         }
       },
-      "Microsoft.AspNetCore.Authentication.JwtBearer/6.0.8": {
+      "Microsoft.AspNetCore.Authentication.JwtBearer/6.0.14": {
         "type": "package",
         "dependencies": {
           "Microsoft.IdentityModel.Protocols.OpenIdConnect": "6.10.0"
@@ -1424,6 +1424,7 @@
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
           "GT_Core.Domain": "1.0.0",
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.14",
           "Microsoft.EntityFrameworkCore": "6.0.8"
         },
         "compile": {
@@ -1659,10 +1660,10 @@
         "microsoft.aspnetcore.authentication.core.nuspec"
       ]
     },
-    "Microsoft.AspNetCore.Authentication.JwtBearer/6.0.8": {
-      "sha512": "ktmldryRkyAMRQpluCZaltRvlcOrlE9SQDmnMOh+XTbck6Vi296UjvwdJb4ULU6PgvZh5j00KAp7uhjpcWQopA==",
+    "Microsoft.AspNetCore.Authentication.JwtBearer/6.0.14": {
+      "sha512": "/XKNv0tpAQrvDgAiz63Q5HWxV/84UmOGETD2XY9HVQXX1l5yjSqRVO+SV/ceN5WOuSDCnCyzV9GhIZX6f9KItg==",
       "type": "package",
-      "path": "microsoft.aspnetcore.authentication.jwtbearer/6.0.8",
+      "path": "microsoft.aspnetcore.authentication.jwtbearer/6.0.14",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1670,7 +1671,7 @@
         "THIRD-PARTY-NOTICES.TXT",
         "lib/net6.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll",
         "lib/net6.0/Microsoft.AspNetCore.Authentication.JwtBearer.xml",
-        "microsoft.aspnetcore.authentication.jwtbearer.6.0.8.nupkg.sha512",
+        "microsoft.aspnetcore.authentication.jwtbearer.6.0.14.nupkg.sha512",
         "microsoft.aspnetcore.authentication.jwtbearer.nuspec"
       ]
     },

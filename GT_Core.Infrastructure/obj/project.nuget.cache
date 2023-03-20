@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ykiRrFvq3b+7K4//X1iQTEreghp/uT/DehH+Jykb7xvjeMfHrxrRD3nOtIlEgCBpF4uaM1R78Sio9O9HvrfuTA==",
+  "dgSpecHash": "PyMfWlvCXiDcn9BTSkEfwQUrSZqEiWpwTbGfK0ZODyi95D+K5yY93UJO/qx5je2XWbbsU4HVdiFiMN9gjEvG/w==",
   "success": true,
   "projectFilePath": "D:\\Git\\GT_Core\\GT_Core.Infrastructure\\GT_Core.Infrastructure.csproj",
   "expectedPackageFiles": [
@@ -15,7 +15,7 @@
     "C:\\Users\\shawn.wilton-brown\\.nuget\\packages\\microsoft.aspnetcore.authentication\\2.2.0\\microsoft.aspnetcore.authentication.2.2.0.nupkg.sha512",
     "C:\\Users\\shawn.wilton-brown\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\shawn.wilton-brown\\.nuget\\packages\\microsoft.aspnetcore.authentication.core\\2.2.0\\microsoft.aspnetcore.authentication.core.2.2.0.nupkg.sha512",
-    "C:\\Users\\shawn.wilton-brown\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.8\\microsoft.aspnetcore.authentication.jwtbearer.6.0.8.nupkg.sha512",
+    "C:\\Users\\shawn.wilton-brown\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.14\\microsoft.aspnetcore.authentication.jwtbearer.6.0.14.nupkg.sha512",
     "C:\\Users\\shawn.wilton-brown\\.nuget\\packages\\microsoft.aspnetcore.authentication.openidconnect\\5.0.0\\microsoft.aspnetcore.authentication.openidconnect.5.0.0.nupkg.sha512",
     "C:\\Users\\shawn.wilton-brown\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\6.0.8\\microsoft.aspnetcore.cryptography.internal.6.0.8.nupkg.sha512",
     "C:\\Users\\shawn.wilton-brown\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\6.0.8\\microsoft.aspnetcore.cryptography.keyderivation.6.0.8.nupkg.sha512",

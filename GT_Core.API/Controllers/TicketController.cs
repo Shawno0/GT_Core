@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace GT_Core.API.Controllers
 {
     [ApiController]
+    [Authorize]
     public class TicketController : Controller
     {
         private readonly TicketService TicketService;

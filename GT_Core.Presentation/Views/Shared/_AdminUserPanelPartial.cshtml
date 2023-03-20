@@ -6,20 +6,25 @@
 }
 
 <h2>
-    User Panel
+    Users
 </h2>
-<form asp-controller="Admin" asp-action="DeleteUser" method="delete" data-ajax="true" data-ajax-update="#user_panel" data-ajax-mode="replace" class="content-center" >
-    <div class="input-container">
-        <label asp-for="DeleteUser"></label>
-        <select asp-for="DeleteUser" asp-items="users"></select>
-    </div>
-    <button type="submit" value="Delete">Delete</button>
-</form>
 <form asp-controller="Admin" asp-action="CreateUser" method="post" data-ajax="true" data-ajax-update="#user_panel" data-ajax-mode="replace" class="content-center" >
     <div class="input-container">
         <label asp-for="NewUser.UserName"></label>
         <input asp-for="NewUser.UserName" />
         <span asp-validation-for="NewUser.UserName" ></span>
     </div>
+    <div class="input-container">
+        <label asp-for="NewUser.Email"></label>
+        <input asp-for="NewUser.Email" />
+        <span asp-validation-for="NewUser.Email"></span>
+    </div>
     <button type="submit" value="Create">Create</button>
+</form>
+<form asp-controller="Admin" asp-action="DeleteUser" method="post" data-ajax="true" data-ajax-update="#user_panel" data-ajax-mode="replace" class="content-center" >
+    <div class="input-container">
+        <label asp-for="DeleteUser"></label>
+        <select asp-for="DeleteUser" asp-items="users"></select>
+    </div>
+    <button type="submit" value="Delete">Delete</button>
 </form>
