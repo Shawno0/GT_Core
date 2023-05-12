@@ -8,7 +8,6 @@ using GT_Core.Presentation.Services;
 
 namespace GT_Core.Presentation.Controllers
 {
-    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> Logger;

@@ -1,5 +1,6 @@
 using GT_Core.Domain.Common;
 using GT_Core.Domain.Entities;
+using GT_Core.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

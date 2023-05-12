@@ -1,15 +1,23 @@
 using GT_Core.Application.Common.Interfaces;
+using GT_Core.Application.Common.Middleware;
+using GT_Core.Domain.Entities;
 using GT_Core.Infrastructure;
+using GT_Core.Infrastructure.Identity;
 using GT_Core.Presentation.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddInfrastructure(builder.Configuration);
-builder.Services.AddSingleton<ICurrentUserService, CurrentUserService>();
-builder.Services.AddSingleton<TicketServiceClient>();
-builder.Services.AddSingleton<StatusServiceClient>();
-builder.Services.AddSingleton<SeverityServiceClient>();
+builder.Services.AddPresentationInfrastructure(builder.Configuration);
+//builder.Services.AddSingleton<EntityCache<string, ApplicationUser>>();
+//builder.Services.AddSingleton<EntityCache<int, Ticket>>();
+//builder.Services.AddSingleton<EntityCache<int, Status>>();
+//builder.Services.AddSingleton<EntityCache<int, Severity>>();
+builder.Services.AddSingleton<ITokenService, TokenService>();
+builder.Services.AddTransient<UserServiceClient>();
+builder.Services.AddTransient<TicketServiceClient>();
+builder.Services.AddTransient<EntityServiceClient<int, Status>>();
+builder.Services.AddTransient<EntityServiceClient<int, Severity>>();
 
 builder.Services.AddControllersWithViews();
 
@@ -28,8 +36,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthentication();
-//app.UseIdentityServer();
+app.UseMiddleware<AuthorizationMiddleware>();
+
 app.UseAuthorization();
 
 app.MapControllerRoute(

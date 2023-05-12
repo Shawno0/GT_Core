@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using GT_Core.Presentation.Services;
 using Microsoft.AspNetCore.Authorization;
+using GT_Core.Domain.Entities;
 
 namespace GT_Core.Presentation.Controllers
 {
@@ -13,16 +14,16 @@ namespace GT_Core.Presentation.Controllers
     {
         private readonly ILogger<HomeController> Logger;
         private readonly TicketServiceClient TicketService;
-        private readonly StatusServiceClient StatusService;
-        private readonly SeverityServiceClient SeverityService;
+        private readonly EntityServiceClient<int, Status> StatusService;
+        private readonly EntityServiceClient<int, Severity> SeverityService;
         private readonly UserManager<ApplicationUser> UserManager;
         private readonly ICurrentUserService UserService;
 
         public DashboardController(
             ILogger<HomeController> _logger,
             TicketServiceClient _ticketService,
-            StatusServiceClient _statusService,
-            SeverityServiceClient _severityService,
+            EntityServiceClient<int, Status> _statusService,
+            EntityServiceClient<int, Severity> _severityService,
             UserManager<ApplicationUser> _userManager,
             ICurrentUserService _userService)
         {

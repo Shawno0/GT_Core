@@ -2,6 +2,7 @@ using GT_Core.Application.Common.Interfaces;
 using GT_Core.Application.Common.Models;
 using GT_Core.Domain.Common;
 using GT_Core.Domain.Entities;
+using GT_Core.Domain.Interfaces;
 using GT_Core.Presentation.Models.ViewModels;
 using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json;
@@ -10,17 +11,15 @@ using System.Net.Http.Headers;
 namespace GT_Core.Presentation.Services
 {
     public partial class EntityServiceClient<TKey, TEntity> : IEntityServiceClient<TKey, TEntity>
-        where TEntity : Entity<TKey>, new()
+        where TEntity : IEntity<TKey>, new()
         where TKey : IEquatable<TKey>, IComparable<TKey>
     {
         internal readonly HttpClient Client;
-        internal IEntityCache<TKey, TEntity> EntityCache;
         internal string ServiceUri = String.Empty;
 
-        public EntityServiceClient(IConfiguration _config)
+        public EntityServiceClient(IConfiguration _config, IHttpClientFactory _clientFactory)
         {
-            Client = new HttpClient();
-            EntityCache = new EntityCache<TKey, TEntity>(_config.GetValue<int>("EntityCacheSettings:DefaultLifetimeMinutes"));
+            Client = _clientFactory.CreateClient();
         }
 
         public async Task<Result<TEntity>> Create(TEntity _entity)
@@ -50,12 +49,12 @@ namespace GT_Core.Presentation.Services
 
         public async Task<Result<TEntity>> Read(TKey _id)
         {
-            if (!EntityCache.Expired())
-            {
-                return ReadFromCache(_id);
-            }
+            //if (!EntityCache.Expired())
+            //{
+            //    return ReadFromCache(_id);
+            //}
 
-            await UpdateEntityCache();
+            //await UpdateEntityCache();
 
             var request = new HttpRequestMessage(HttpMethod.Get, $"{ServiceUri}/{_id}/read");
 
@@ -71,26 +70,26 @@ namespace GT_Core.Presentation.Services
             return new Result<TEntity>(false, new List<string>() { response.StatusCode.ToString() });
         }
 
-        private Result<TEntity> ReadFromCache(TKey _id)
-        {
-            TEntity entity = EntityCache.Entities.FirstOrDefault(e => e.Id.Equals(_id));
+        //private Result<TEntity> ReadFromCache(TKey _id)
+        //{
+        //    TEntity entity = EntityCache.Entities.FirstOrDefault(e => e.Id.Equals(_id));
 
-            if (entity == null)
-            {
-                return new Result<TEntity>(false, new TEntity());
-            }
+        //    if (entity == null)
+        //    {
+        //        return new Result<TEntity>(false, new TEntity());
+        //    }
 
-            return new Result<TEntity>(true, entity);
-        }
+        //    return new Result<TEntity>(true, entity);
+        //}
 
         public async Task<Result<IEnumerable<TEntity>>> ReadRange(TKey _startId, TKey _endId)
         {
-            if (!EntityCache.Expired())
-            {
-                return ReadRangeFromCache(_startId, _endId);
-            }
+            //if (!EntityCache.Expired())
+            //{
+            //    return ReadRangeFromCache(_startId, _endId);
+            //}
 
-            await UpdateEntityCache();
+            //await UpdateEntityCache();
 
             var request = new HttpRequestMessage(HttpMethod.Get, $"{ServiceUri}/{_startId}/{_endId}/read");
 
@@ -106,24 +105,24 @@ namespace GT_Core.Presentation.Services
             return new Result<IEnumerable<TEntity>>(false, new List<string>() { response.StatusCode.ToString() });
         }
 
-        private Result<IEnumerable<TEntity>> ReadRangeFromCache(TKey _startId, TKey _endId)
-        {
-            IEnumerable<TEntity> entities = EntityCache.Entities.Where(e => e.Id.CompareTo(_startId) >= 0 && e.Id.CompareTo(_endId) <= 0);
+        //private Result<IEnumerable<TEntity>> ReadRangeFromCache(TKey _startId, TKey _endId)
+        //{
+        //    IEnumerable<TEntity> entities = EntityCache.Entities.Where(e => e.Id.CompareTo(_startId) >= 0 && e.Id.CompareTo(_endId) <= 0);
 
-            if (entities.Count() == 0)
-            {
-                return new Result<IEnumerable<TEntity>>(false, new List<TEntity>());
-            }
+        //    if (entities.Count() == 0)
+        //    {
+        //        return new Result<IEnumerable<TEntity>>(false, new List<TEntity>());
+        //    }
 
-            return new Result<IEnumerable<TEntity>>(true, entities);
-        }
+        //    return new Result<IEnumerable<TEntity>>(true, entities);
+        //}
 
         public async Task<Result<IEnumerable<TEntity>>> ReadAll()
         {
-            if (!EntityCache.Expired())
-            {
-                return ReadAllFromCache();
-            }
+            //if (!EntityCache.Expired())
+            //{
+            //    return ReadAllFromCache();
+            //}
 
             var request = new HttpRequestMessage(HttpMethod.Get, $"{ServiceUri}/read");
 
@@ -133,7 +132,7 @@ namespace GT_Core.Presentation.Services
             {
                 IEnumerable<TEntity>? entity = JsonConvert.DeserializeObject<IEnumerable<TEntity>>(await response.Content.ReadAsStringAsync());
 
-                EntityCache.UpdateEntityCache(entity);
+                //EntityCache.UpdateEntityCache(entity);
 
                 return new Result<IEnumerable<TEntity>>(true, entity);
             }
@@ -141,10 +140,10 @@ namespace GT_Core.Presentation.Services
             return new Result<IEnumerable<TEntity>>(false, new List<string>() { response.StatusCode.ToString() });
         }
 
-        private Result<IEnumerable<TEntity>> ReadAllFromCache()
-        {
-            return new Result<IEnumerable<TEntity>>(true, EntityCache.Entities);
-        }
+        //private Result<IEnumerable<TEntity>> ReadAllFromCache()
+        //{
+        //    return new Result<IEnumerable<TEntity>>(true, EntityCache.Entities);
+        //}
 
         public async Task<Result<TEntity>> Update(TEntity _entity)
         {
@@ -198,7 +197,7 @@ namespace GT_Core.Presentation.Services
             {
                 IEnumerable<TEntity>? entity = JsonConvert.DeserializeObject<IEnumerable<TEntity>>(await response.Content.ReadAsStringAsync());
 
-                EntityCache.UpdateEntityCache(entity);
+                //EntityCache.UpdateEntityCache(entity);
             }
         }
     }

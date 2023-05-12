@@ -3,35 +3,35 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using GT_Core.Infrastructure.Identity;
 using Microsoft.AspNetCore.Authorization;
+using GT_Core.Presentation.Services;
+using System.Security.Claims;
+using GT_Core.Application.Common.Interfaces;
 
 namespace GT_Core.Presentation.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly ILogger<AccountController> _logger;
+        private readonly UserServiceClient UserService;
+        private readonly ITokenService TokenService;
+        private readonly ILogger<AccountController> Logger;
         public AccountController(
-            UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
+            UserServiceClient _identityService,
+            ITokenService _tokenService,
             ILogger<AccountController> logger)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _logger = logger;
+            UserService = _identityService;
+            TokenService = _tokenService;
+            Logger = logger;
         }
 
         [AllowAnonymous]
 
         public async Task<IActionResult> Login()
         {
-            // Clear the existing external cookie to ensure a clean login process
-            await _signInManager.SignOutAsync();
-
             LoginViewModel model = new LoginViewModel();
 
-            model.ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            model.ExternalLogins = new List<AuthenticationScheme>();
 
             return View(model);
         }
@@ -42,10 +42,12 @@ namespace GT_Core.Presentation.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, lockoutOnFailure: false);
+                var result = await UserService.LoginAsync(model.UserName, model.Password);
 
                 if (result.Succeeded)
                 {
+                    TokenService.SetToken(result.Entity);
+
                     return RedirectToAction("Index", "Home");
                 }
             }
@@ -56,7 +58,7 @@ namespace GT_Core.Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
-            await _signInManager.SignOutAsync();
+            TokenService.SetToken(null);
 
             return RedirectToAction("Index", "Home");
         }
@@ -75,21 +77,22 @@ namespace GT_Core.Presentation.Controllers
                 var user = new ApplicationUser()
                 {
                     UserName = model.UserName,
-                    Email = model.Email
+                    Email = model.Email,
+                    PasswordHash = model.Password
                 };
 
-                var result = await _userManager.CreateAsync(user, model.Password);
+                var result = await UserService.Create(user);
 
                 if (result.Succeeded)
                 {
-                    await _signInManager.SignInAsync(user, false);
+                    //await SignInManager.SignInAsync(user, false);
                     RedirectToAction("Index", "Home");
                 }
                 else
                 {
                     foreach (var error in result.Errors)
                     {
-                        ModelState.AddModelError("", error.Description);
+                        ModelState.AddModelError("", error);
                     }
                 }
             }

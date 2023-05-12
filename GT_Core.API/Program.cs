@@ -1,12 +1,15 @@
 using GT_Core.API.Services;
 using GT_Core.Application.Common.Interfaces;
+using GT_Core.Application.Common.Middleware;
 using GT_Core.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddAPIInfrastructure(builder.Configuration);
 builder.Services.AddSingleton<ICurrentUserService, CurrentUserService>();
+builder.Services.AddSingleton<ITokenService, TokenService>();
+builder.Services.AddTransient<UserService>();
 builder.Services.AddTransient<TicketService>();
 builder.Services.AddTransient<SeverityService>();
 builder.Services.AddTransient<StatusService>();

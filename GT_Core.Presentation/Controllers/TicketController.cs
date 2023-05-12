@@ -16,15 +16,15 @@ namespace GT_Core.Presentation.Controllers
         private readonly ILogger<TicketController> Logger;
         private readonly UserManager<ApplicationUser> UserManager;
         private readonly TicketServiceClient TicketService;
-        private readonly SeverityServiceClient SeverityService;
-        private readonly StatusServiceClient StatusService;
+        private readonly EntityServiceClient<int, Severity> SeverityService;
+        private readonly EntityServiceClient<int, Status> StatusService;
 
         public TicketController(
             ILogger<TicketController> _logger,
             UserManager<ApplicationUser> _userManager,
             TicketServiceClient _ticketService,
-            SeverityServiceClient _severityService,
-            StatusServiceClient _statusService)
+            EntityServiceClient<int, Severity> _severityService,
+            EntityServiceClient<int, Status> _statusService)
         {
             Logger = _logger;
             UserManager = _userManager;

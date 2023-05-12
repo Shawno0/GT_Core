@@ -1,4 +1,5 @@
 ﻿using GT_Core.Domain.Common;
+using GT_Core.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GT_Core.Application.Common.Interfaces
 {
-    public interface IEntityCache<TKey, TEntity> where TEntity : Entity<TKey>
+    public interface IEntityCache<TKey, TEntity> where TEntity : IEntity<TKey>
     {
         public int Lifetime { get; }
         public IEnumerable<TEntity> Entities { get; }

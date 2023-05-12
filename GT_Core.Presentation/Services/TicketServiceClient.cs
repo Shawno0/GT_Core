@@ -10,7 +10,10 @@ namespace GT_Core.Presentation.Services
 {
     public class TicketServiceClient : EntityServiceClient<int, Ticket>
     {
-        public TicketServiceClient(IConfiguration _config) : base(_config)
+        public TicketServiceClient(
+            IConfiguration _config, 
+            IHttpClientFactory _clientFactory)
+            : base(_config, _clientFactory)
         {
             ServiceUri = $"{_config.GetValue<string>("APIUri")}/ticket";
         }

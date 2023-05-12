@@ -15,24 +15,24 @@ namespace GT_Core.Presentation.Controllers
     {
         private readonly ILogger<AdminController> Logger;
         private readonly TicketServiceClient TicketService;
-        private readonly StatusServiceClient StatusService;
-        private readonly SeverityServiceClient SeverityService;
-        private readonly UserManager<ApplicationUser> UserManager;
+        private readonly EntityServiceClient<int, Status> StatusService;
+        private readonly EntityServiceClient<int, Severity> SeverityService;
+        private readonly UserServiceClient UserService;
         private readonly RoleManager<IdentityRole> RoleManager;
 
         public AdminController(
             ILogger<AdminController> _logger,
             TicketServiceClient _ticketService,
-            StatusServiceClient _statusService,
-            SeverityServiceClient _severityService,
-            UserManager<ApplicationUser> _userManager,
+            EntityServiceClient<int, Status> _statusService,
+            EntityServiceClient<int, Severity> _severityService,
+            UserServiceClient _userService,
             RoleManager<IdentityRole> _roleManager)
         {
             Logger = _logger;
             TicketService = _ticketService;
             StatusService = _statusService;
             SeverityService = _severityService;
-            UserManager = _userManager;
+            UserService = _userService;
             RoleManager = _roleManager;
         }
 
@@ -42,11 +42,12 @@ namespace GT_Core.Presentation.Controllers
 
             var statusResult = await StatusService.ReadAll();
             var severityResult = await SeverityService.ReadAll();
+            var userResult = await UserService.ReadAll();
 
             model.StatusPanel.Statuses = statusResult.Entity?.Select(s => new StatusViewModel(s)) ?? new List<StatusViewModel>();
             model.SeverityPanel.Severities = severityResult.Entity?.Select(s => new SeverityViewModel(s)) ?? new List<SeverityViewModel>();
             model.RolePanel.Roles = RoleManager.Roles.Select(s => new RoleViewModel(s))?.ToList() ?? new List<RoleViewModel>();
-            model.RolePanel.Users = model.UserPanel.Users = UserManager.Users.Select(u => new UserViewModel(u))?.ToList() ?? new List<UserViewModel>();
+            model.RolePanel.Users = model.UserPanel.Users = userResult.Entity?.Select(u => new UserViewModel(u))?.ToList() ?? new List<UserViewModel>();
 
             return View(model);
         }
@@ -125,8 +126,10 @@ namespace GT_Core.Presentation.Controllers
         {
             RolePanelViewModel model = new RolePanelViewModel();
 
+            var userResult = await UserService.ReadAll();
+
             model.Roles = RoleManager.Roles.Select(r => new RoleViewModel(r))?.ToList() ?? new List<RoleViewModel>();
-            model.Users = UserManager.Users.Select(u => new UserViewModel(u))?.ToList() ?? new List<UserViewModel>();
+            model.Users = userResult.Entity.Select(u => new UserViewModel(u))?.ToList() ?? new List<UserViewModel>();
             //model.UserRoles = RoleManager.Roles.Select(r => r.)
 
             return PartialView("_AdminRolePanelPartial", model);
@@ -163,11 +166,11 @@ namespace GT_Core.Presentation.Controllers
 
             if (role != null)
             {
-                var user = await UserManager.FindByIdAsync(_userRole.UserId);
+                var userRequest = await UserService.Read(_userRole.UserId);
 
-                if (user != null)
+                if (userRequest.Succeeded)
                 {
-                    await UserManager.AddToRoleAsync(user, role.Name);
+                    await UserService.AddToRoleAsync(role.Name, userRequest.Entity.UserName);
                 }
             }
 
