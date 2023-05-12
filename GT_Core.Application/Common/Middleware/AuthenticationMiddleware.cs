@@ -5,16 +5,16 @@ using System.Security.Claims;
 
 namespace GT_Core.Application.Common.Middleware
 {
-    public class AuthorizationMiddleware
+    public class AuthenticationMiddleware
     {
         private readonly RequestDelegate Next;
         private readonly ITokenService TokenService;
-        private readonly ILogger<AuthorizationMiddleware> Logger;
+        private readonly ILogger<AuthenticationMiddleware> Logger;
 
-        public AuthorizationMiddleware(
+        public AuthenticationMiddleware(
             RequestDelegate _next,
             ITokenService _tokenService,
-            ILogger<AuthorizationMiddleware> _logger)
+            ILogger<AuthenticationMiddleware> _logger)
         {
             Next = _next;
             TokenService = _tokenService;
