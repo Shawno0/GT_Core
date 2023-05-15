@@ -8,16 +8,19 @@ using System.Text;
 
 namespace GT_Core.Application.Common.Middleware
 {
-    public class TokenService : ITokenService
+    public class TokenHandler : ITokenHandler
     {
+        private const string AUTHENTICATION_TYPE = "Jwt";
+        private const string NAME_TYPE = "name";
+        private const string ROLE_TYPE = "role";
         private JwtSecurityToken Token;
 
         private readonly IConfiguration Configuration;
-        private readonly ILogger<TokenService> Logger;
+        private readonly ILogger<TokenHandler> Logger;
 
-        public TokenService(
+        public TokenHandler(
             IConfiguration _configuration, 
-            ILogger<TokenService> _logger)
+            ILogger<TokenHandler> _logger)
         {
             Configuration = _configuration;
             Logger = _logger;
@@ -41,7 +44,7 @@ namespace GT_Core.Application.Common.Middleware
 
         public JwtSecurityToken GetToken()
         {
-            return Token;
+            return Token ?? new JwtSecurityToken();
         }
 
         public void SetToken(JwtSecurityToken _token)
@@ -61,7 +64,7 @@ namespace GT_Core.Application.Common.Middleware
 
         public ClaimsIdentity GetIdentity()
         {
-            var identity = new ClaimsIdentity(GetClaims(), "Jwt", "name", "role");
+            var identity = new ClaimsIdentity(GetClaims(), AUTHENTICATION_TYPE, NAME_TYPE, ROLE_TYPE);
 
             return identity;
         }
@@ -71,6 +74,15 @@ namespace GT_Core.Application.Common.Middleware
             var principal = new ClaimsPrincipal(GetIdentity());
 
             return principal;
+        }
+
+        public string GetHttpHeader()
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            var result = tokenHandler.WriteToken(GetToken());
+
+            return result;
         }
 
         public bool IsAuthenticated()

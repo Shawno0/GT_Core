@@ -13,11 +13,11 @@ namespace GT_Core.Presentation.Controllers
     public class AccountController : Controller
     {
         private readonly UserServiceClient UserService;
-        private readonly ITokenService TokenService;
+        private readonly ITokenHandler TokenService;
         private readonly ILogger<AccountController> Logger;
         public AccountController(
             UserServiceClient _identityService,
-            ITokenService _tokenService,
+            ITokenHandler _tokenService,
             ILogger<AccountController> logger)
         {
             UserService = _identityService;

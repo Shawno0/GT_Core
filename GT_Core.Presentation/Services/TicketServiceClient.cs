@@ -11,11 +11,12 @@ namespace GT_Core.Presentation.Services
     public class TicketServiceClient : EntityServiceClient<int, Ticket>
     {
         public TicketServiceClient(
-            IConfiguration _config, 
+            IConfiguration _config,
+            ITokenHandler _tokenHandler,
             IHttpClientFactory _clientFactory)
-            : base(_config, _clientFactory)
+            : base(_config, _tokenHandler, _clientFactory)
         {
-            ServiceUri = $"{_config.GetValue<string>("APIUri")}/ticket";
+
         }
 
         public async Task<Result<IEnumerable<Ticket>>> ReadByStatus(int _id)

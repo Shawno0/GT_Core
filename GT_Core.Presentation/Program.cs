@@ -13,7 +13,7 @@ builder.Services.AddPresentationInfrastructure(builder.Configuration);
 //builder.Services.AddSingleton<EntityCache<int, Ticket>>();
 //builder.Services.AddSingleton<EntityCache<int, Status>>();
 //builder.Services.AddSingleton<EntityCache<int, Severity>>();
-builder.Services.AddSingleton<ITokenService, TokenService>();
+builder.Services.AddSingleton<ITokenHandler, TokenHandler>();
 builder.Services.AddTransient<UserServiceClient>();
 builder.Services.AddTransient<TicketServiceClient>();
 builder.Services.AddTransient<EntityServiceClient<int, Status>>();

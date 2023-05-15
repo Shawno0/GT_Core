@@ -18,7 +18,7 @@ namespace GT_Core.API.Services
         private readonly IApplicationDbContext DbContext;
         private readonly UserManager<ApplicationUser> UserManager;
         private readonly PasswordHasher<ApplicationUser> PasswordHasher;
-        private readonly ITokenService TokenService;
+        private readonly ITokenHandler TokenService;
         private readonly IUserClaimsPrincipalFactory<ApplicationUser> UserClaimsPrincipalFactory;
         private readonly IAuthorizationService AuthorizationService;
         private readonly IAuthenticationSchemeProvider Schemes;
@@ -27,7 +27,7 @@ namespace GT_Core.API.Services
         public UserService(
             IApplicationDbContext _dbContext,
             UserManager<ApplicationUser> _userManager,
-            ITokenService _tokenService,
+            ITokenHandler _tokenService,
             IUserClaimsPrincipalFactory<ApplicationUser> _userClaimsPrincipalFactory,
             IAuthorizationService _authorizationService,
             IAuthenticationSchemeProvider _schemes,

@@ -10,11 +10,11 @@ namespace GT_Core.API.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        private UserService IdentityService;
+        private UserService UserService;
 
-        public AccountController(UserService _identityService)
+        public AccountController(UserService _userService)
         {
-            IdentityService = _identityService;
+            UserService = _userService;
         }
 
         [HttpGet]
@@ -22,7 +22,7 @@ namespace GT_Core.API.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(string _username, string _password, CancellationToken _cancellationToken = default)
         {
-            var result = await IdentityService.AuthenticateAsync(_username, _password);
+            var result = await UserService.AuthenticateAsync(_username, _password);
 
             if (result.Succeeded)
             {
@@ -40,7 +40,7 @@ namespace GT_Core.API.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await IdentityService.Create(_user, _cancellationToken);
+                var result = await UserService.Create(_user, _cancellationToken);
 
                 if (result.Succeeded)
                 {
@@ -57,7 +57,7 @@ namespace GT_Core.API.Controllers
         [Route("/account/{_id}/read")]
         public async Task<IActionResult> Read(string _id, CancellationToken _cancellationToken = default)
         {
-            var result = await IdentityService.Read(_id, _cancellationToken);
+            var result = await UserService.Read(_id, _cancellationToken);
 
             if (result.Succeeded)
             {
@@ -71,7 +71,7 @@ namespace GT_Core.API.Controllers
         [Route("/account/read")]
         public async Task<IActionResult> ReadAll(CancellationToken _cancellationToken = default)
         {
-            var result = await IdentityService.ReadAll(_cancellationToken);
+            var result = await UserService.ReadAll(_cancellationToken);
 
             if (result.Succeeded)
             {
@@ -87,7 +87,7 @@ namespace GT_Core.API.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await IdentityService.Update(_user, _cancellationToken);
+                var result = await UserService.Update(_user, _cancellationToken);
 
                 if (result.Succeeded)
                 {
@@ -104,7 +104,7 @@ namespace GT_Core.API.Controllers
         [Route("/account/{_id}/delete")]
         public async Task<IActionResult> Delete(string _id, CancellationToken _cancellationToken = default)
         {
-            var result = await IdentityService.Delete(_id, _cancellationToken);
+            var result = await UserService.Delete(_id, _cancellationToken);
 
             if (result.Succeeded)
             {

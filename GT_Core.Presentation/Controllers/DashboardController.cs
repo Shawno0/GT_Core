@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using GT_Core.Presentation.Services;
 using Microsoft.AspNetCore.Authorization;
 using GT_Core.Domain.Entities;
+using System.Security.Claims;
 
 namespace GT_Core.Presentation.Controllers
 {
@@ -16,23 +17,17 @@ namespace GT_Core.Presentation.Controllers
         private readonly TicketServiceClient TicketService;
         private readonly EntityServiceClient<int, Status> StatusService;
         private readonly EntityServiceClient<int, Severity> SeverityService;
-        private readonly UserManager<ApplicationUser> UserManager;
-        private readonly ICurrentUserService UserService;
 
         public DashboardController(
             ILogger<HomeController> _logger,
             TicketServiceClient _ticketService,
             EntityServiceClient<int, Status> _statusService,
-            EntityServiceClient<int, Severity> _severityService,
-            UserManager<ApplicationUser> _userManager,
-            ICurrentUserService _userService)
+            EntityServiceClient<int, Severity> _severityService)
         {
             Logger = _logger;
             TicketService = _ticketService;
             StatusService = _statusService;
             SeverityService = _severityService;
-            UserManager = _userManager;
-            UserService = _userService;
         }
 
         public async Task<IActionResult> Index()
@@ -83,7 +78,7 @@ namespace GT_Core.Presentation.Controllers
 
         public async Task<IActionResult> MyTickets()
         {
-            var ticketResult = await TicketService.ReadByUser(UserService.UserId ?? string.Empty);
+            var ticketResult = await TicketService.ReadByUser(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? string.Empty);
 
             if (!ticketResult.Succeeded)
             {

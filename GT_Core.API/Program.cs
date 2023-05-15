@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddAPIInfrastructure(builder.Configuration);
 builder.Services.AddSingleton<ICurrentUserService, CurrentUserService>();
-builder.Services.AddSingleton<ITokenService, TokenService>();
+builder.Services.AddSingleton<ITokenHandler, TokenHandler>();
 builder.Services.AddTransient<UserService>();
 builder.Services.AddTransient<TicketService>();
 builder.Services.AddTransient<SeverityService>();

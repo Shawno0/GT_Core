@@ -14,20 +14,20 @@ namespace GT_Core.Presentation.Controllers
     public class TicketController : Controller
     {
         private readonly ILogger<TicketController> Logger;
-        private readonly UserManager<ApplicationUser> UserManager;
+        private readonly UserServiceClient UserService;
         private readonly TicketServiceClient TicketService;
         private readonly EntityServiceClient<int, Severity> SeverityService;
         private readonly EntityServiceClient<int, Status> StatusService;
 
         public TicketController(
             ILogger<TicketController> _logger,
-            UserManager<ApplicationUser> _userManager,
+            UserServiceClient _userService,
             TicketServiceClient _ticketService,
             EntityServiceClient<int, Severity> _severityService,
             EntityServiceClient<int, Status> _statusService)
         {
             Logger = _logger;
-            UserManager = _userManager;
+            UserService = _userService;
             TicketService = _ticketService;
             SeverityService = _severityService;
             StatusService = _statusService;
@@ -40,10 +40,10 @@ namespace GT_Core.Presentation.Controllers
             var model = new CreateTicketViewModel();
 
             var severitiesResult = await SeverityService.ReadAll();
-            var users = UserManager.Users?.Select(u => new UserViewModel(u))?.ToList() ?? new List<UserViewModel>();
+            var usersResult = await UserService.ReadAll();
 
             model.Severities = severitiesResult.Entity?.Select(s => new SeverityViewModel(s)) ?? new List<SeverityViewModel>();
-            model.Users = users;
+            model.Users = usersResult.Entity?.Select(u => new UserViewModel(u))?.ToList() ?? new List<UserViewModel>();
 
             return PartialView("_CreateTicketPartial", model);
         }

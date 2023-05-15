@@ -8,12 +8,12 @@ namespace GT_Core.Application.Common.Middleware
     public class AuthenticationMiddleware
     {
         private readonly RequestDelegate Next;
-        private readonly ITokenService TokenService;
+        private readonly ITokenHandler TokenService;
         private readonly ILogger<AuthenticationMiddleware> Logger;
 
         public AuthenticationMiddleware(
             RequestDelegate _next,
-            ITokenService _tokenService,
+            ITokenHandler _tokenService,
             ILogger<AuthenticationMiddleware> _logger)
         {
             Next = _next;

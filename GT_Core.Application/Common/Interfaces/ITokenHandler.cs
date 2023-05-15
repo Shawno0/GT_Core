@@ -3,7 +3,7 @@ using System.Security.Claims;
 
 namespace GT_Core.Application.Common.Interfaces
 {
-    public interface ITokenService
+    public interface ITokenHandler
     {
         public JwtSecurityToken GenerateToken(ClaimsPrincipal _principal);
         public JwtSecurityToken GetToken();
@@ -11,6 +11,7 @@ namespace GT_Core.Application.Common.Interfaces
         public IEnumerable<Claim> GetClaims();
         public ClaimsPrincipal GetPrincipal();
         public ClaimsIdentity GetIdentity();
+        public string GetHttpHeader();
         public bool IsAuthenticated();
     }
 }

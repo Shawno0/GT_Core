@@ -9,16 +9,13 @@ namespace GT_Core.Presentation.Services
 {
     public class UserServiceClient : EntityServiceClient<string, ApplicationUser>, IUserService
     {
-        private readonly ITokenService TokenService;
-
         public UserServiceClient(
             IConfiguration _config, 
             IHttpClientFactory _clientFactory,
-            ITokenService _tokenService)
-            : base(_config, _clientFactory)
+            ITokenHandler _tokenService)
+            : base(_config, _tokenService, _clientFactory, _endpoint: "account")
         {
-            TokenService = _tokenService;
-            ServiceUri = $"{_config.GetValue<string>("APIUri")}/account";
+
         }
 
         public async Task<Result<JwtSecurityToken>> LoginAsync(string _username, string _passwordHash)

@@ -1,3 +1,4 @@
+using GT_Core.Application.Common.Extensions;
 using GT_Core.Application.Common.Interfaces;
 using GT_Core.Application.Common.Models;
 using GT_Core.Domain.Common;
@@ -14,12 +15,17 @@ namespace GT_Core.Presentation.Services
         where TEntity : IEntity<TKey>, new()
         where TKey : IEquatable<TKey>, IComparable<TKey>
     {
+        internal readonly IConfiguration Configuration;
+        internal readonly ITokenHandler TokenService;
         internal readonly HttpClient Client;
         internal string ServiceUri = String.Empty;
 
-        public EntityServiceClient(IConfiguration _config, IHttpClientFactory _clientFactory)
+        public EntityServiceClient(IConfiguration _config, ITokenHandler _tokenHandler, IHttpClientFactory _clientFactory, string? _endpoint = null)
         {
-            Client = _clientFactory.CreateClient();
+            Configuration = _config;
+            TokenService = _tokenHandler;
+            Client = _clientFactory.CreateClient(_tokenHandler);
+            ServiceUri = $"{Configuration.GetValue<string>("APIUri")}/{_endpoint ?? (typeof(TEntity).Name.ToLower())}";
         }
 
         public async Task<Result<TEntity>> Create(TEntity _entity)
